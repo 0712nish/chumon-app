@@ -3,9 +3,12 @@
 namespace App\Mail;
 
 use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
 class OrderConfirmedMail extends Mailable
 {
+    use SerializesModels;
+
     public $kihon;
     public $meisaiList;
 
@@ -17,7 +20,7 @@ class OrderConfirmedMail extends Mailable
 
     public function build()
     {
-        return $this->subject('【注文完了】ご注文ありがとうございます')
-                    ->view('emails.order_confirmed');
+        return $this->subject('【注文確定】ご注文ありがとうございます')
+                    ->text('emails.order_confirmed'); // ← テキスト形式
     }
 }

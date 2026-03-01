@@ -1,22 +1,39 @@
-<h2>ご注文ありがとうございます</h2>
+ご注文ありがとうございます。
+下記の内容で注文を承りました。
 
-<p>注文番号：{{ $kihon->kihonno }}</p>
-<p>注文日：{{ $kihon->shoridate }}</p>
+────────────────────────────
+■ 注文番号：{{ $kihon->kihonno }}
+■ 注文日　：{{ $kihon->shoridate }}
+■ ご注文者：{{ auth()->user()->name2 }} 様
+────────────────────────────
 
-<table border="1" cellpadding="5">
-    <tr>
-        <th>商品名</th>
-        <th>数量</th>
-        <th>単価</th>
-    </tr>
+【ご注文内容】
 
-    @foreach($meisaiList as $m)
-    <tr>
-        <td>{{ $m->shohin->shohinname2 }}</td>
-        <td>{{ $m->suryo }}</td>
-        <td>{{ number_format($m->tanka) }}円</td>
-    </tr>
-    @endforeach
-</table>
+@php $total = 0; @endphp
 
-<p>以上、ご確認ください。</p>
+@foreach($meisaiList as $m)
+@php
+    $subtotal = $m->suryo * $m->tanka;
+    $total += $subtotal;
+@endphp
+
+--------------------------------------------
+商品名 ： {{ $m->shohin->shohinname2 }}
+単価　 ： {{ number_format($m->tanka, 2) }} 円
+数量　 ： {{ number_format($m->suryo, 1) }} {{ $m->tani }}
+小計　 ： {{ number_format($subtotal, 0) }} 円
+--------------------------------------------
+
+@endforeach
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+■ 合計金額：{{ number_format($total, 0) }} 円
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+
+本メールは自動送信されています。
+ご不明点がございましたら管理者までお問い合わせください。
+
+--------------------------------------------------
+SNF 注文システム
+--------------------------------------------------

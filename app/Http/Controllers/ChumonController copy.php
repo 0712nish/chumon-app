@@ -113,11 +113,7 @@ class ChumonController extends Controller
         $hsid = Auth::user()->hsid;
 
         try {
-
-            $kihon = null;
-            $meisaiList = null;
-
-            DB::transaction(function () use ($hsid, &$kihon, &$meisaiList) {
+            DB::transaction(function () use ($hsid) {
 
                 $kihon = ChumonKihon::where('hsid', $hsid)
                     ->where('status', 0)
@@ -129,7 +125,6 @@ class ChumonController extends Controller
                 }
 
                 $meisaiList = ChumonMeisai::where('kihonno', $kihon->kihonno)
-                    ->with('shohin')
                     ->get();
 
                 if ($meisaiList->isEmpty()) {
@@ -162,17 +157,30 @@ class ChumonController extends Controller
                         ->decrement('stock', $meisai->suryo);
                 }
 
-                // ✅ 注文確定（今処理中のものを更新）
-                $kihon->status = 1;
-                $kihon->save();
-            });
+                // 注文確定
+                ChumonKihon::where('kihonno', $kihon->kihonno)
+                    ->update([
+                        'status' => 1,
+                    ]);
 
-            // ✅ トランザクション外でメール送信
+$kihon = ChumonKihon::where('hsid', $hsid)
+    ->where('status', 1)
+    ->with(['meisai.shohin'])
+    ->orderByDesc('shoridate')
+    ->first();
+
+$meisaiList = $kihon->meisai;
+
+/* ユーザーへ送信 */
 Mail::to(Auth::user()->email)
     ->send(new OrderConfirmedMail($kihon, $meisaiList));
 
+/* 管理者へ送信 */
 Mail::to('nishiyama-kenichi-vr@shumei.or.jp')
     ->send(new OrderConfirmedMail($kihon, $meisaiList));
+
+
+            });
 
         } catch (\RuntimeException $e) {
             return redirect('/chumon')
