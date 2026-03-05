@@ -3,21 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
     <title>@yield('title', '注文アプリ')</title>
     <style>
         body {
             font-family: "Meiryo", "Hiragino Kaku Gothic Pro", sans-serif;
-            background: linear-gradient(135deg, #dff3ff, #f5fbff);
+            /*background: linear-gradient(135deg, #dff3ff, #f5fbff);*/
+            background: linear-gradient(135deg, #dffff8, #f5fffc);
             margin: 0;
         }
 
+        header{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
         header {
-            background: #4aa3df;
-            color: #fff;
+            /*background: #4aa3df;*/
+            background: #ffffff;
+            color: #000000;
             padding: 12px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .header-logo img{
+            height:50px;
         }
 
         .login-wrapper {
@@ -29,31 +42,32 @@
 
         .login-card {
             background: #fff;
-            width: 380px;
-            padding: 30px;
+            width: 300px;
+            padding: 5px 30px 30px 20px; /* 上 右 下 左 */
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0,0,0,.15);
             text-align: center;
         }
 
         .login-title {
-            color: #4aa3df;
-            margin-bottom: 5px;
+            color: #4adfa6;
+            margin-bottom: 10px;
+            font-size: 26px;
         }
 
         .login-sub {
-            font-size: 14px;
+            font-size: 18px;
             color: #777;
-            margin-bottom: 20px;
+            margin-bottom: 1px;
         }
 
         .login-field {
             text-align: left;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
         }
 
         .login-field label {
-            font-size: 13px;
+            font-size: 18px;
             color: #555;
         }
 
@@ -63,27 +77,28 @@
             border: 1px solid #ccc;
             border-radius: 6px;
             margin-top: 4px;
+            font-size: 25px;
         }
 
         .login-field input:focus {
             outline: none;
-            border-color: #4aa3df;
+            border-color: #4adfa6;
             box-shadow: 0 0 0 2px rgba(74,163,223,.2);
         }
 
-        .login-btn {
-            width: 100%;
-            padding: 10px;
-            background: #4aa3df;
-            border: none;
-            color: #fff;
-            border-radius: 6px;
-            font-size: 15px;
-            cursor: pointer;
-        }
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: #4adfa6;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+}
 
         .login-btn:hover {
-            background: #3498db;
+            background: #45c39a;
         }
 
         .login-error {
@@ -99,7 +114,7 @@
         }
 
         .page-header h2 {
-            color: #4aa3df;
+            color: #4adfa6;
             margin-bottom: 4px;
         }
 
@@ -217,7 +232,8 @@
         .product-table th {
             background: transparent;
             border: none;
-            color: #4aa3df;
+            /*color: #4aa3df;*/
+            color: #4adfa6;
             font-weight: bold;
         }
 
@@ -246,12 +262,13 @@
         }
 
         .product-table input[type=number]:focus {
-            border-color: #4aa3df;
+            border-color: #4adfa6;
             box-shadow: 0 0 0 2px rgba(74,163,223,.2);
         }
 
         .btn-add {
-            background: linear-gradient(135deg, #4aa3df, #3498db);
+            /*background: linear-gradient(135deg, #4aa3df, #3498db);*/
+            background: linear-gradient(135deg, #4adfa6, #4adfa6);
             color: #fff;
             border: none;
             padding: 6px 14px;
@@ -322,7 +339,8 @@
         共通ボタン（追加ボタン系）
         ========================= */
         .btn-action {
-            background: linear-gradient(135deg, #4aa3df, #3498db);
+            /*background: linear-gradient(135deg, #4aa3df, #3498db);*/
+            background: linear-gradient(135deg, #4adfa6, #4adfa6);
             color: #fff;
             border: none;
             padding: 6px 14px;
@@ -334,7 +352,7 @@
         }
 
         .btn-action:hover {
-            opacity: 0.9;
+            opacity: 0.7;
             transform: translateY(-1px);
         }
 
@@ -346,7 +364,7 @@
 
         /* 注文確定 */
         .btn-success-action {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            background: linear-gradient(135deg, #4adfa6, #4adfa6);
             box-shadow: 0 3px 8px rgba(46,204,113,.4);
         }
 
@@ -410,7 +428,8 @@
     .product-table td::before {
         content: attr(data-label);
         font-weight: bold;
-        color: #4aa3df;
+        /*color: #4aa3df;*/
+        color: #4adfa6;
         padding-right: 10px;
     }
 
@@ -515,7 +534,9 @@
 <body>
 
 <header>
-    <div>📦 SNF</div>
+    <div class="header-logo">
+        <img src="{{ asset('images/logo.png') }}" alt="logo">
+    </div>
 
     @auth
         <div>

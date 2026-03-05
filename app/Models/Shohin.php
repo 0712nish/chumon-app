@@ -24,4 +24,10 @@ class Shohin extends Model
         'step',
         'biko'
     ];
+
+    public function chumonStarts()
+    {
+        return $this->hasMany(ChumonStart::class, 'shohinno', 'shohinno');
+    }
+
 }

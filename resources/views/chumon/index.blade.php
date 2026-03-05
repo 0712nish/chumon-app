@@ -46,6 +46,7 @@
                 <tr>
                     <th>No</th>
                     <th>商品名</th>
+                    <th>販売開始</th>
                     <th>単価</th>
                     <th>数量</th>
                     <th>小計</th>
@@ -62,6 +63,9 @@
                     <tr>
                         <td class="product-no" data-label="No">{{ $m->meisaino }}</td>
                         <td class="product-name" data-label="商品名">{{ $m->shohin->shohinname2 }}</td>
+                        <td data-label="販売開始">
+                            {{ \Carbon\Carbon::parse($m->startdate)->format('Y-m-d') }}
+                        </td>
                         <td data-label="単価">{{ $m->hyojitanka }}</td>
 
                         <td data-label="数量">
@@ -72,7 +76,7 @@
                                        class="qty-input"
                                        min="{{ $m->shohin->min }}"
                                        step="{{ $m->shohin->step }}"
-                                       value="{{ $m->suryo }}"
+                                       value="{{ rtrim(rtrim(number_format($m->suryo,2), '0'), '.') }}"
                                        style="width:70px;">
                                 <span class="unit">{{ $m->tani }}</span>
                                 <input type="hidden" name="kihonno" value="{{ $kihon->kihonno }}">

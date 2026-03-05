@@ -7,7 +7,7 @@
 <div class="login-wrapper">
     <div class="login-card">
         <h2 class="login-title">注文アプリ</h2>
-        <p class="login-sub">ログインしてください</p>
+        <!--<p class="login-sub">ログインしてください</p>-->
 
         @if ($errors->any())
             <div class="login-error">

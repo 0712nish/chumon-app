@@ -16,6 +16,7 @@ class ChumonMeisai extends Model
         'kihonno',
         'meisaino',
         'shohinno',
+        'startdate',
         'suryo',
         'tanka',
         'hyojitanka',

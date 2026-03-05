@@ -44,10 +44,11 @@
                 <table class="product-table">
                     <tr>
                         <th>商品名</th>
+                        <th>販売開始</th>
                         <th>単価</th>
                         <th>数量</th>
                         <th>小計</th>
-                        <th>受取状況</th>
+                        {{--<th>受取状況</th>--}}
                     </tr>
 
                     @php $total = 0; @endphp
@@ -59,21 +60,28 @@
                         @endphp
                         <tr>
                             <td class="product-name" data-label="商品名">{{ $m->shohin->shohinname2 }}</td>
+                            <td data-label="販売開始">
+                                @if($m->startdate)
+                                    {{ \Carbon\Carbon::parse($m->startdate)->format('Y-m-d') }}
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td data-label="単価">{{ number_format($m->tanka, 0) }}円</td> {{-- これで四捨五入できている --}}
                             <td data-label="数量">{{ $m->suryo }} {{ $m->tani }}</td>
                             <td data-label="小計">{{ number_format($subtotal, 0) }}円</td> {{-- これで四捨五入できている --}}
-                            <td data-label="受取状況">
+                            {{-- <td data-label="受取状況">
                                 @if($m->uriage)
                                     　<span class="badge-success">受取済</span>
                                 @else
                                     　<span class="badge-wait">未受取</span>
                                 @endif
-                            </td>
+                            </td>--}}
                         </tr>
                     @endforeach
 
                     <tr>
-                        <td colspan="3" style="text-align:right;"><strong>合計</strong></td>
+                        <td colspan="4" style="text-align:right;"><strong>合計</strong></td>
                         <td><strong>{{ number_format($total, 0) }}円</strong></td>
                     </tr>
                 </table>

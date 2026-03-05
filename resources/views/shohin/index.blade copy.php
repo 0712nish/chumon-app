@@ -38,56 +38,55 @@
 
 <div class="content-container">
     <div class="card">
-        <table class="product-table">
-            <tr>
-                {{--<th>No</th>--}}
-                <th>商品名</th>
-                <th>単価</th>
-                <th>在庫</th>
-                <th>数量</th>
-                <th></th>
-            </tr>
-            @foreach($shohinList as $s)
-            <tr class="
-                {{ $s->stock <= 0 ? 'stock-zero' : '' }}
-                {{ $s->stock > 0 && $s->stock <= 5 ? 'stock-low' : '' }}
-            ">
-                {{--<td class="product-no" data-label="No">{{ $s->shohinno }}</td>--}}
-                <td class="product-name" data-label="商品名">{{ $s->shohinname2 }}</td>
-                {{--<td data-label="単価">¥{{ number_format($s->tanka, 2) }}</td>--}}
-                <td data-label="単価">{{ $s->hyojitanka }}</td>
-                <td data-label="在庫">{{ $s->stock }} {{ $s->tani }}</td>
 
-                <td data-label="数量">
-                    @if($s->stock > 0)
-                    <form method="POST" action="/chumon/add" id="form-{{ $s->shohinno }}" class="qty-form qty-add-wrap">
-                        @csrf
-                        <input type="number"
-                            name="suryo"
-                            class="qty-input"
-                            min="{{ $s->min }}"
-                            max="{{ $s->stock }}"
-                            step="{{ $s->step }}"
-                            value="0">
-                        <span class="unit">{{ $s->tani }}</span>
+        <form method="POST" action="/chumon/add-multi">
+            @csrf
 
-                        <input type="hidden" name="shohinno" value="{{ $s->shohinno }}">
+            <table class="product-table">
+                <tr>
+                    <th>商品名</th>
+                    <th>単価</th>
+                    <th>在庫</th>
+                    <th>数量</th>
+                    <th>備考</th>
+                </tr>
 
-                    </form>
-                    @else
-                        <span class="sold-out">売切</span>
-                    @endif
-                </td>
-                <td class="add-btn-cell qty-add-wrap">
-                    @if($s->stock > 0)
-                        <button type="submit" form="form-{{ $s->shohinno }}" class="btn-action">
-                            かごに追加
-                        </button>
-                    @endif
-                </td>
-            </tr>
-            @endforeach
-        </table>
+                @foreach($shohinList as $s)
+                <tr class="
+                    {{ $s->stock <= 0 ? 'stock-zero' : '' }}
+                    {{ $s->stock > 0 && $s->stock <= 5 ? 'stock-low' : '' }}
+                ">
+                    <td class="product-name" data-label="商品名">{{ $s->shohinname2 }}</td>
+                    <td data-label="単価">{{ $s->hyojitanka }}</td>
+                    <td data-label="在庫">{{ $s->stock }} {{ $s->tani }}</td>
+
+                    <td data-label="数量">
+                        @if($s->stock > 0)
+                            <input type="number"
+                                   name="items[{{ $s->shohinno }}]"
+                                   class="qty-input"
+                                   min="0"
+                                   max="{{ $s->stock }}"
+                                   step="{{ $s->step }}"
+                                   value="0">
+                            <span class="unit">{{ $s->tani }}</span>
+                        @else
+                            <span class="sold-out">売切</span>
+                        @endif
+                    </td>
+                    <td data-label="備考">{{ $s->biko }}</td>
+                </tr>
+                @endforeach
+            </table>
+
+            <div style="text-align:right; margin-top:20px;">
+                <button class="btn-action btn-success-action">
+                    まとめてかごに追加
+                </button>
+            </div>
+
+        </form>
+
     </div>
 </div>
 

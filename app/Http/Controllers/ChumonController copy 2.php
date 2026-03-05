@@ -82,7 +82,7 @@ class ChumonController extends Controller
         $request->validate([
             'kihonno'  => 'required',
             'meisaino' => 'required',
-            'suryo'    => 'required|numeric|min:0',
+            'suryo'    => 'required|integer|min:1',
         ]);
 
     ChumonMeisai::where('kihonno', $request->kihonno)
@@ -215,39 +215,42 @@ public function addMulti(Request $request)
 
     $hasValidItem = false;
 
-    foreach ($items as $item) {
+    foreach ($items as $shohinno => $qty) {
 
-        $qty = (float)($item['qty'] ?? 0);
+        $qty = (float)$qty;
 
         if ($qty <= 0) continue;
 
-        $shohinno = $item['shohinno'];
-        $startdate = $item['startdate'];
+        // 🔴 ここで必ず取得する
+        $shohin = Shohin::findOrFail($shohinno);
 
-        $shohin = ChumonStart::where('shohinno', $shohinno)
-            ->whereDate('startdate', $startdate)
-            ->firstOrFail();
-
+        // 🔴 ここで min チェック
         if ($qty < $shohin->min) {
             return back()->withErrors([
                 "{$shohin->shohinname2} の数量は {$shohin->min} 以上で入力してください"
             ]);
         }
 
+        // 在庫チェック
+        //if ($qty > $shohin->stock) {
+        //    return back()->withErrors([
+        //        "{$shohin->shohinname2} の在庫を超えています"
+        //    ]);
+        //}
+
         $hasValidItem = true;
 
         $meisai = ChumonMeisai::where('kihonno', $kihon->kihonno)
             ->where('shohinno', $shohinno)
-            ->whereDate('startdate', $startdate)
             ->first();
 
         if ($meisai) {
 
+            // 🔵 save() を使わない
             ChumonMeisai::where('kihonno', $kihon->kihonno)
                 ->where('shohinno', $shohinno)
-                ->whereDate('startdate', $startdate)
                 ->update([
-                    'suryo' => DB::raw("suryo + $qty")
+                    'suryo' => $meisai->suryo + $qty
                 ]);
 
         } else {
@@ -255,11 +258,14 @@ public function addMulti(Request $request)
             $maxMeisaiNo = ChumonMeisai::where('kihonno', $kihon->kihonno)
                 ->max('meisaino') ?? 0;
 
+            //$shohin = Shohin::findOrFail($shohinno);
+            $shohin = ChumonStart::findOrFail($shohinno, $startdate);
+
             ChumonMeisai::create([
                 'kihonno'   => $kihon->kihonno,
                 'meisaino'  => $maxMeisaiNo + 1,
                 'shohinno'  => $shohinno,
-                'startdate' => $startdate,
+                'startdate' => $shohin->startdate,
                 'suryo'     => $qty,
                 'tanka'     => $shohin->tanka,
                 'hyojitanka'=> $shohin->hyojitanka,

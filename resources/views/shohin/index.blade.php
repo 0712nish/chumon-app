@@ -45,6 +45,7 @@
             <table class="product-table">
                 <tr>
                     <th>商品名</th>
+                    <th>販売開始</th>
                     <th>単価</th>
                     <th>在庫</th>
                     <th>数量</th>
@@ -52,18 +53,30 @@
                 </tr>
 
                 @foreach($shohinList as $s)
+@php
+$key = $s->shohinno . '_' . $s->startdate->format('Y-m-d');
+@endphp
                 <tr class="
                     {{ $s->stock <= 0 ? 'stock-zero' : '' }}
                     {{ $s->stock > 0 && $s->stock <= 5 ? 'stock-low' : '' }}
                 ">
                     <td class="product-name" data-label="商品名">{{ $s->shohinname2 }}</td>
+                    <td data-label="販売開始">{{ $s->startdate->format('Y-m-d') }}</td>
                     <td data-label="単価">{{ $s->hyojitanka }}</td>
                     <td data-label="在庫">{{ $s->stock }} {{ $s->tani }}</td>
+
+<input type="hidden"
+       name="items[{{ $key }}][shohinno]"
+       value="{{ $s->shohinno }}">
+
+<input type="hidden"
+       name="items[{{ $key }}][startdate]"
+       value="{{ $s->startdate->format('Y-m-d') }}">
 
                     <td data-label="数量">
                         @if($s->stock > 0)
                             <input type="number"
-                                   name="items[{{ $s->shohinno }}]"
+                                   name="items[{{ $key }}][qty]"
                                    class="qty-input"
                                    min="0"
                                    max="{{ $s->stock }}"
