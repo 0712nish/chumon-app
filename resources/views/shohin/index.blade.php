@@ -92,9 +92,9 @@ $key = $s->shohinno . '_' . $s->startdate->format('Y-m-d');
                 @endforeach
             </table>
 
-            <div style="text-align:right; margin-top:20px;">
+            <div style="text-align:center; margin-top:20px;">
                 <button class="btn-action btn-success-action">
-                    まとめてかごに追加
+                    かごに追加
                 </button>
             </div>
 
