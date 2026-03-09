@@ -70,18 +70,28 @@
 
                         <td data-label="数量">
                             <form method="POST" action="/chumon/update" class="qty-form">
-                                @csrf
-                                <input type="number"
-                                       name="suryo"
-                                       class="qty-input"
-                                       min="{{ $m->shohin->min }}"
-                                       step="{{ $m->shohin->step }}"
-                                       value="{{ rtrim(rtrim(number_format($m->suryo,2), '0'), '.') }}"
-                                       style="width:70px;">
-                                <span class="unit">{{ $m->tani }}</span>
-                                <input type="hidden" name="kihonno" value="{{ $kihon->kihonno }}">
-                                <input type="hidden" name="meisaino" value="{{ $m->meisaino }}">
-                                <button class="btn-add">変更</button>
+                            @csrf
+
+                            <div class="qty-box">
+
+                            <button type="button" class="qty-minus">−</button>
+
+                            <input type="number"
+                                name="suryo"
+                                class="qty-input"
+                                min="{{ $m->shohin->min }}"
+                                step="{{ $m->shohin->step }}"
+                                value="{{ rtrim(rtrim(number_format($m->suryo,2), '0'), '.') }}">
+
+                            <button type="button" class="qty-plus">＋</button>
+
+                            <span class="unit">{{ $m->tani }}</span><button class="btn-add">変更</button>
+
+                            </div>
+
+                            <input type="hidden" name="kihonno" value="{{ $kihon->kihonno }}">
+                            <input type="hidden" name="meisaino" value="{{ $m->meisaino }}">
+
                             </form>
                         </td>
                         {{-- floor切り捨て ceil切り上げ --}}
@@ -101,20 +111,19 @@
                     </tr>
                 @endforeach
 
-                <tr class="total-row">
-                    <th colspan="4" style="text-align:right;">合計</th>
-                    <th>{{ number_format($total, 0) }}円</th>
-                    <th></th>
+                <tr>
+                    <td colspan="5" style="text-align:right;">合計</td>
+                    <td>{{ number_format($total, 0) }}円</td>
                 </tr>
 
             </table>
 
-            <div style="text-align:right; margin-top:15px;">
-                <form method="POST" action="/chumon/confirm">
+            <div style="text-align:center; margin-top:15px;">
+                <form method="POST" action="/chumon/confirm" style="display:inline-block;">
                     @csrf
                     <button class="btn-action btn-success-action"
                         onclick="return confirm('この内容で注文を確定しますか？')">
-                        購入手続きへ
+                        購入手続きへ　　　
                     </button>
                 </form>
             </div>

@@ -309,8 +309,11 @@
         }
 
         .btn-action.btn-logout{
-            background:linear-gradient(135deg,#e74c3c,#c0392b);
-            box-shadow:0 3px 8px rgba(231,76,60,.4);
+            /*background:linear-gradient(135deg,#e74c3c,#c0392b);*/
+            /*box-shadow:0 3px 8px rgba(231,76,60,.4);*/
+            background: linear-gradient(135deg,#f5f5f5,#e0e0e0);
+            color:#555;
+            border:1px solid #d0d0d0;
         }
 
         .page-header h2 {
@@ -419,7 +422,31 @@
             display: flex;
             gap: 10px;
         }
-        
+
+.qty-box{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.qty-input{
+    width:70px;
+    height:34px;
+    text-align:center;
+    font-size:16px;
+}
+
+.qty-plus,
+.qty-minus{
+    width:34px;
+    height:34px;
+    border:1px solid #ccc;
+    background:#f5f5f5;
+    border-radius:6px;
+    font-size:18px;
+    cursor:pointer;
+}
+
 /* =========================
    スマホ最適化
 ========================= */
@@ -528,7 +555,7 @@
 
     /* 合計行 */
     .product-table tr:last-child td {
-        font-weight: bold;
+        font-weight: normal;
     }
 
     /* 数量＋追加ボタンを横並び */
@@ -635,6 +662,26 @@
 <main>
     @yield('content')
 </main>
+
+<script>
+
+document.querySelectorAll('.qty-box').forEach(box => {
+
+    const input = box.querySelector('.qty-input');
+    const plus = box.querySelector('.qty-plus');
+    const minus = box.querySelector('.qty-minus');
+
+    plus.addEventListener('click', () => {
+        input.stepUp();
+    });
+
+    minus.addEventListener('click', () => {
+        input.stepDown();
+    });
+
+});
+
+</script>
 
 </body>
 </html>

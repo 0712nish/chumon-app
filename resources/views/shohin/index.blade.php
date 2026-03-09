@@ -53,9 +53,9 @@
                 </tr>
 
                 @foreach($shohinList as $s)
-@php
-$key = $s->shohinno . '_' . $s->startdate->format('Y-m-d');
-@endphp
+                    @php
+                    $key = $s->shohinno . '_' . $s->startdate->format('Y-m-d');
+                    @endphp
                 <tr class="
                     {{ $s->stock <= 0 ? 'stock-zero' : '' }}
                     {{ $s->stock > 0 && $s->stock <= 5 ? 'stock-low' : '' }}
@@ -65,24 +65,28 @@ $key = $s->shohinno . '_' . $s->startdate->format('Y-m-d');
                     <td data-label="単価">{{ $s->hyojitanka }}</td>
                     <td data-label="在庫">{{ $s->stock }} {{ $s->tani }}</td>
 
-<input type="hidden"
-       name="items[{{ $key }}][shohinno]"
-       value="{{ $s->shohinno }}">
-
-<input type="hidden"
-       name="items[{{ $key }}][startdate]"
-       value="{{ $s->startdate->format('Y-m-d') }}">
+                <input type="hidden" name="items[{{ $key }}][shohinno]" value="{{ $s->shohinno }}">
+                <input type="hidden" name="items[{{ $key }}][startdate]" value="{{ $s->startdate->format('Y-m-d') }}">
 
                     <td data-label="数量">
                         @if($s->stock > 0)
+                            <div class="qty-box">
+
+                            <button type="button" class="qty-minus">−</button>
+
                             <input type="number"
-                                   name="items[{{ $key }}][qty]"
-                                   class="qty-input"
-                                   min="0"
-                                   max="{{ $s->stock }}"
-                                   step="{{ $s->step }}"
-                                   value="0">
+                                name="items[{{ $key }}][qty]"
+                                class="qty-input"
+                                min="0"
+                                max="{{ $s->stock }}"
+                                step="{{ $s->step }}"
+                                value="0">
+
+                            <button type="button" class="qty-plus">＋</button>
+
                             <span class="unit">{{ $s->tani }}</span>
+
+                            </div>
                         @else
                             <span class="sold-out">売切</span>
                         @endif
@@ -92,9 +96,10 @@ $key = $s->shohinno . '_' . $s->startdate->format('Y-m-d');
                 @endforeach
             </table>
 
-            <div style="text-align:center; margin-top:20px;">
+            {{--<div style="text-align:center; margin-top:20px;">--}}
+            <div style="margin-top:20px; display:flex; justify-content:center;">
                 <button class="btn-action btn-success-action">
-                    かごに追加
+                    かごに追加　　　　
                 </button>
             </div>
 
