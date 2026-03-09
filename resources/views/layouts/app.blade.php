@@ -31,6 +31,23 @@
 
         .header-logo img{
             height:50px;
+            width:auto;
+        }
+
+        .header-user{
+            display:flex;
+            align-items:center;
+            gap:15px;
+        }
+
+        .header-buttons{
+            display:flex;
+            gap:10px;
+        }
+
+        .header-buttons form{
+            display:flex;
+            margin:0;
         }
 
         .login-wrapper {
@@ -276,11 +293,24 @@
             font-size: 13px;
             cursor: pointer;
             box-shadow: 0 3px 8px rgba(74,163,223,.4);
+            /*追加*/
+            transition:all .15s ease;
+
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+
+            line-height:1;
         }
 
         .btn-add:hover {
             opacity: 0.9;
             transform: translateY(-1px);
+        }
+
+        .btn-action.btn-logout{
+            background:linear-gradient(135deg,#e74c3c,#c0392b);
+            box-shadow:0 3px 8px rgba(231,76,60,.4);
         }
 
         .page-header h2 {
@@ -338,8 +368,7 @@
         /* =========================
         共通ボタン（追加ボタン系）
         ========================= */
-        .btn-action {
-            /*background: linear-gradient(135deg, #4aa3df, #3498db);*/
+        /*.btn-action {
             background: linear-gradient(135deg, #4adfa6, #4adfa6);
             color: #fff;
             border: none;
@@ -349,7 +378,25 @@
             cursor: pointer;
             box-shadow: 0 3px 8px rgba(74,163,223,.4);
             transition: all .15s ease;
-        }
+        }*/
+.btn-action{
+    background: linear-gradient(135deg,#4adfa6,#4adfa6);
+    color:#fff;
+    border:none;
+
+    padding:0 16px;
+    height:36px;
+
+    border-radius:20px;
+    font-size:13px;
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:0 3px 8px rgba(74,163,223,.4);
+}
 
         .btn-action:hover {
             opacity: 0.7;
@@ -382,6 +429,22 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
+    }
+
+    .header-logo img{
+        height:30px;
+    }
+
+    .header-user{
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:4px;
+    }
+
+    .header-buttons{
+        display:flex;
+        gap:10px;
     }
 
     .page-header {
@@ -450,7 +513,18 @@
         margin-top: 6px;
         padding: 10px;
         font-size: 14px;
+        height:30px;
     }
+
+    /*
+    .btn-action{
+        white-space:nowrap;
+        display:inline-flex;
+        align-items:center;
+        height:32px;
+        padding:6px 14px;
+    }
+    */
 
     /* 合計行 */
     .product-table tr:last-child td {
@@ -539,15 +613,21 @@
     </div>
 
     @auth
-        <div>
-            {{ auth()->user()->hsid }}（{{ auth()->user()->name2 }}）
-            
-            <a href="/account" class="btn-action">⚙ アカウント設定</a>
-            
-            <form method="POST" action="{{ route('logout') }}" style="display:inline;">
-                @csrf
-                <button class="btn-danger">ログアウト</button>
-            </form>
+        <div class="header-user">
+
+            <div class="user-name">
+                {{ auth()->user()->hsid }}（{{ auth()->user()->name2 }}）
+            </div>
+
+            <div class="header-buttons">
+                <a href="/account" class="btn-action">⚙ アカウント設定</a>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn-action btn-logout">ログアウト</button>
+                </form>
+            </div>
+
         </div>
     @endauth
 </header>
