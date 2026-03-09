@@ -102,7 +102,7 @@
                                 @csrf
                                 <input type="hidden" name="kihonno" value="{{ $kihon->kihonno }}">
                                 <input type="hidden" name="meisaino" value="{{ $m->meisaino }}">
-                                <button class="btn-action btn-danger-action"
+                                <button class="btn-danger-action"
                                     onclick="return confirm('削除しますか？')">
                                     削除
                                 </button>
@@ -123,7 +123,7 @@
                     @csrf
                     <button class="btn-action btn-success-action"
                         onclick="return confirm('この内容で注文を確定しますか？')">
-                        購入手続きへ　　　
+                        購入手続きへ
                     </button>
                 </form>
             </div>

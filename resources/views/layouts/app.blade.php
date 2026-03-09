@@ -408,8 +408,16 @@
 
         /* 削除 */
         .btn-danger-action {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            box-shadow: 0 3px 8px rgba(231,76,60,.4);
+            /*background: linear-gradient(135deg, #e74c3c, #c0392b);*/
+            background: linear-gradient(135deg,#e57373,#d32f2f);
+            /*box-shadow: 0 3px 8px rgba(231,76,60,.4);*/
+            border:none;
+            color:#fff;
+            font-size: 12px;     /* 文字サイズを小さく */
+            padding: 5px 10px;   /* ボタンの余白を小さく */
+            border-radius: 20px;
+            line-height:1.2;
+            
         }
 
         /* 注文確定 */
@@ -459,7 +467,7 @@
     }
 
     .header-logo img{
-        height:30px;
+        height:35px;
     }
 
     .header-user{
@@ -541,6 +549,11 @@
         padding: 10px;
         font-size: 14px;
         height:30px;
+    }
+
+    .btn-success-action{
+        font-size:18px;
+        padding:12px 28px;
     }
 
     /*

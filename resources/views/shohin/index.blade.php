@@ -99,7 +99,7 @@
             {{--<div style="text-align:center; margin-top:20px;">--}}
             <div style="margin-top:20px; display:flex; justify-content:center;">
                 <button class="btn-action btn-success-action">
-                    かごに追加　　　　
+                    かごに追加
                 </button>
             </div>
 
