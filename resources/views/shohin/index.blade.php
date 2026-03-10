@@ -63,8 +63,7 @@
                     <td class="product-name" data-label="商品名">{{ $s->shohinname2 }}</td>
                     <td data-label="販売開始">{{ $s->startdate->format('Y-m-d') }}</td>
                     <td data-label="単価">{{ $s->hyojitanka }}</td>
-                    <td data-label="在庫">{{ $s->stock }} {{ $s->tani }}</td>
-
+                    <td data-label="在庫">{{ rtrim(rtrim($s->stock, '0'), '.') }} {{ $s->tani }}</td>
                 <input type="hidden" name="items[{{ $key }}][shohinno]" value="{{ $s->shohinno }}">
                 <input type="hidden" name="items[{{ $key }}][startdate]" value="{{ $s->startdate->format('Y-m-d') }}">
 

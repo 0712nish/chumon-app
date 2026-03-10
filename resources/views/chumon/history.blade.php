@@ -67,8 +67,8 @@
                                     -
                                 @endif
                             </td>
-                            <td data-label="単価">{{ number_format($m->tanka, 0) }}円</td> {{-- これで四捨五入できている --}}
-                            <td data-label="数量">{{ $m->suryo }} {{ $m->tani }}</td>
+                            <td data-label="単価">{{ rtrim(rtrim($m->tanka, '0'), '.') }}円</td> {{-- これで四捨五入できている --}}
+                            <td data-label="数量">{{ rtrim(rtrim($m->suryo, '0'), '.') }} {{ $m->tani }}</td>
                             <td data-label="小計">{{ number_format($subtotal, 0) }}円</td> {{-- これで四捨五入できている --}}
                             {{-- <td data-label="受取状況">
                                 @if($m->uriage)

@@ -141,15 +141,18 @@ class ChumonController extends Controller
 
                 // 在庫チェック
                 foreach ($meisaiList as $meisai) {
-                    $shohin = Shohin::where('shohinno', $meisai->shohinno)
+                    $start = ChumonStart::where('shohinno', $meisai->shohinno)
+                        ->where('startdate', $meisai->startdate)
                         ->lockForUpdate()
                         ->first();
 
-                    if ($shohin->stock < $meisai->suryo) {
-                        $lack = $meisai->suryo - $shohin->stock;
+                    if ($start->stock < $meisai->suryo) {
+
+                        $lack = $meisai->suryo - $start->stock;
+
                         $errors[] =
-                            "「{$shohin->shohinname2}」が {$lack} 個不足しています"
-                            . "（在庫 {$shohin->stock}）";
+                            "「{$meisai->shohin->shohinname2}」が {$lack} {$start->tani} 不足しています"
+                            . "（在庫 {$start->stock}）";
                     }
                 }
 
@@ -159,7 +162,8 @@ class ChumonController extends Controller
 
                 // 在庫引当
                 foreach ($meisaiList as $meisai) {
-                    Shohin::where('shohinno', $meisai->shohinno)
+                    ChumonStart::where('shohinno', $meisai->shohinno)
+                        ->where('startdate', $meisai->startdate)
                         ->decrement('stock', $meisai->suryo);
                 }
 
@@ -225,7 +229,7 @@ public function addMulti(Request $request)
         $startdate = $item['startdate'];
 
         $shohin = ChumonStart::where('shohinno', $shohinno)
-            ->whereDate('startdate', $startdate)
+            ->where('startdate', $startdate)
             ->firstOrFail();
 
         if ($qty < $shohin->min) {
@@ -238,14 +242,14 @@ public function addMulti(Request $request)
 
         $meisai = ChumonMeisai::where('kihonno', $kihon->kihonno)
             ->where('shohinno', $shohinno)
-            ->whereDate('startdate', $startdate)
+            ->where('startdate', $startdate)
             ->first();
 
         if ($meisai) {
 
             ChumonMeisai::where('kihonno', $kihon->kihonno)
                 ->where('shohinno', $shohinno)
-                ->whereDate('startdate', $startdate)
+                ->where('startdate', $startdate)
                 ->update([
                     'suryo' => DB::raw("suryo + $qty")
                 ]);
@@ -264,6 +268,9 @@ public function addMulti(Request $request)
                 'tanka'     => $shohin->tanka,
                 'hyojitanka'=> $shohin->hyojitanka,
                 'tani'      => $shohin->tani,
+                'min'      => $shohin->min,
+                'stock'      => $shohin->stock,
+                'step'      => $shohin->step,
                 'urikatano' => '02',
             ]);
         }

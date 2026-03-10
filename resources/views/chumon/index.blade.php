@@ -79,9 +79,10 @@
                             <input type="number"
                                 name="suryo"
                                 class="qty-input"
-                                min="{{ $m->shohin->min }}"
-                                step="{{ $m->shohin->step }}"
-                                value="{{ rtrim(rtrim(number_format($m->suryo,2), '0'), '.') }}">
+                                min="0"
+                                max="{{ $m->stock }}"
+                                step="{{ $m->step }}"
+                                value="{{ rtrim(rtrim($m->suryo, '0'), '.') }}">
 
                             <button type="button" class="qty-plus">＋</button>
 

@@ -21,6 +21,9 @@ class ChumonMeisai extends Model
         'tanka',
         'hyojitanka',
         'tani',
+        'min',
+        'stock',
+        'step',
         'urikatano',
     ];
 
@@ -38,5 +41,6 @@ class ChumonMeisai extends Model
     {
         return $this->hasOne(Uriagedata::class, 'barcode', 'barcode');
     }
+
 }
 
