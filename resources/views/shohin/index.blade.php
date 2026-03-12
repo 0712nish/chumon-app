@@ -71,19 +71,19 @@
                         @if($s->stock > 0)
                             <div class="qty-box">
 
-                            <button type="button" class="qty-minus">−</button>
+                            {{--<button type="button" class="qty-minus">−</button>--}}
 
-                            <input type="number"
-                                name="items[{{ $key }}][qty]"
-                                class="qty-input"
-                                min="0"
-                                max="{{ $s->stock }}"
-                                step="{{ $s->step }}"
-                                value="0">
+                            <select name="items[{{ $key }}][qty]" class="qty-select">
+                                <option value="0">選択</option>
+                                @foreach($s->shohin->suryoRules as $q)
+                                    <option value="{{ $q->suryo }}">
+                                        {{ $q->label }}
+                                    </option>
+                                @endforeach
+                            </select>
 
-                            <button type="button" class="qty-plus">＋</button>
-
-                            <span class="unit">{{ $s->tani }}</span>
+                            {{--<button type="button" class="qty-plus">＋</button>--}}
+                            {{--<<span class="unit">{{ $s->tani }}</span>--}}
 
                             </div>
                         @else

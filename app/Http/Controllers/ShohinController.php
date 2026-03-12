@@ -12,7 +12,10 @@ class ShohinController extends Controller
     {
         $today = Carbon::today();
 
-        $shohinList = ChumonStart::where('startdate', '<=', $today)
+        $shohinList = ChumonStart::with([
+                'shohin.suryoRules'   // ← 追加
+            ])
+            ->where('startdate', '<=', $today)
             ->where('enddate', '>=', $today)
             ->orderBy('startdate')
             ->orderBy('shohinno')

@@ -455,6 +455,12 @@
     cursor:pointer;
 }
 
+.qty-select{
+    height:36px;
+    font-size:20px;
+    padding:4px 8px;
+}
+
 /* =========================
    スマホ最適化
 ========================= */

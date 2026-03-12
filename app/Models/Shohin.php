@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\ChumonStart;
+use App\Models\ShohinSuryoRule;
 use Illuminate\Database\Eloquent\Model;
 
 class Shohin extends Model
@@ -28,6 +30,12 @@ class Shohin extends Model
     public function chumonStarts()
     {
         return $this->hasMany(ChumonStart::class, 'shohinno', 'shohinno');
+    }
+
+    public function suryoRules()
+    {
+        return $this->hasMany(ShohinSuryoRule::class,'shohinno','shohinno')
+            ->orderBy('sortno');
     }
 
 }

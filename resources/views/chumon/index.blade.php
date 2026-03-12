@@ -73,9 +73,8 @@
                             @csrf
 
                             <div class="qty-box">
-
+{{--
                             <button type="button" class="qty-minus">−</button>
-
                             <input type="number"
                                 name="suryo"
                                 class="qty-input"
@@ -83,11 +82,23 @@
                                 max="{{ $m->stock }}"
                                 step="{{ $m->step }}"
                                 value="{{ rtrim(rtrim($m->suryo, '0'), '.') }}">
-
                             <button type="button" class="qty-plus">＋</button>
-
                             <span class="unit">{{ $m->tani }}</span><button class="btn-add">変更</button>
+--}}
+                            <select name="suryo" class="qty-select">
 
+                            @foreach($m->shohin->suryoRules as $q)
+
+                            <option value="{{ $q->suryo }}"
+                            @if($q->suryo == $m->suryo) selected @endif>
+                            {{ $q->label }}
+                            </option>
+
+                            @endforeach
+
+                            </select>
+
+                            {{--<button class="btn-add">変更</button>--}}
                             </div>
 
                             <input type="hidden" name="kihonno" value="{{ $kihon->kihonno }}">
@@ -134,3 +145,20 @@
 </div>
 
 @endsection
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    document.querySelectorAll('.qty-select').forEach(function(el){
+
+        el.addEventListener('change', function(){
+
+            this.closest('form').submit();
+
+        });
+
+    });
+
+});
+</script>
+

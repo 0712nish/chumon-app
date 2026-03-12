@@ -251,7 +251,8 @@ public function addMulti(Request $request)
                 ->where('shohinno', $shohinno)
                 ->where('startdate', $startdate)
                 ->update([
-                    'suryo' => DB::raw("suryo + $qty")
+                    //'suryo' => DB::raw("suryo + $qty")
+                    'suryo' => $qty
                 ]);
 
         } else {
@@ -270,10 +271,18 @@ public function addMulti(Request $request)
                 'tani'      => $shohin->tani,
                 'min'      => $shohin->min,
                 'stock'      => $shohin->stock,
-                'step'      => $shohin->step,
+                //'step'      => $shohin->step,
                 'urikatano' => '02',
             ]);
         }
+
+        if ($qty > $shohin->stock) {
+
+            return back()->withErrors([
+                "{$shohin->shohinname2} の在庫が不足しています"
+            ]);
+        }
+        
     }
 
     if (!$hasValidItem) {
