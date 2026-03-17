@@ -75,7 +75,8 @@
 
                             <select name="items[{{ $key }}][qty]" class="qty-select">
                                 <option value="0">選択</option>
-                                @foreach($s->shohin->suryoRules as $q)
+                                {{--@foreach($s->shohin->suryoRules as $q)--}}
+                                @foreach($s->suryoRules as $q)
                                     <option value="{{ $q->suryo }}">
                                         {{ $q->label }}
                                     </option>

@@ -70,7 +70,7 @@ class ChumonController extends Controller
     {
         $kihon = ChumonKihon::where('hsid', Auth::user()->hsid)
             ->where('status', 0)
-            ->with(['meisai.shohin'])
+            ->with(['meisai.shohin', 'meisai.start.suryoRules']) //
             ->first();
 
         return view('chumon.index', compact('kihon'));
@@ -269,6 +269,7 @@ public function addMulti(Request $request)
                 'tanka'     => $shohin->tanka,
                 'hyojitanka'=> $shohin->hyojitanka,
                 'tani'      => $shohin->tani,
+                'suryoruleno' => $shohin->suryoruleno, // 追加
                 'min'      => $shohin->min,
                 'stock'      => $shohin->stock,
                 //'step'      => $shohin->step,

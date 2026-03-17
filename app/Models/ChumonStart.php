@@ -25,6 +25,7 @@ class ChumonStart extends Model
         'tanka',
         'hyojitanka',
         'tani',
+        'suryoruleno',
         'is_on_sale',
         'min',
         'stock',
@@ -42,4 +43,14 @@ class ChumonStart extends Model
     {
         return $this->belongsTo(Shohin::class, 'shohinno', 'shohinno');
     }
+
+    public function suryoRules()
+    {
+        return $this->hasMany(
+            ShohinSuryoRule::class,
+            'ruleno',   // 子テーブル
+            'suryoruleno'    // 親（chumonstart）
+        )->orderBy('sortno');
+    }
+
 }

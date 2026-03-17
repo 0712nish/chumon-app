@@ -44,12 +44,12 @@
         @else
             <table class="product-table">
                 <tr>
-                    <th>No</th>
+                    {{--<th>No</th>--}}
                     <th>商品名</th>
                     <th>販売開始</th>
                     <th>単価</th>
                     <th>数量</th>
-                    <th>小計</th>
+                    {{--<th>小計</th>--}}
                     <th></th>
                 </tr>
 
@@ -61,7 +61,7 @@
                         $total += $subtotal;
                     @endphp
                     <tr>
-                        <td class="product-no" data-label="No">{{ $m->meisaino }}</td>
+                        {{--<td class="product-no" data-label="No">{{ $m->meisaino }}</td>--}}
                         <td class="product-name" data-label="商品名">{{ $m->shohin->shohinname2 }}</td>
                         <td data-label="販売開始">
                             {{ \Carbon\Carbon::parse($m->startdate)->format('Y-m-d') }}
@@ -87,7 +87,8 @@
 --}}
                             <select name="suryo" class="qty-select">
 
-                            @foreach($m->shohin->suryoRules as $q)
+                            {{--@foreach($m->shohin->suryoRules as $q)--}}
+                            @foreach($m->start->suryoRules as $q)
 
                             <option value="{{ $q->suryo }}"
                             @if($q->suryo == $m->suryo) selected @endif>
@@ -107,7 +108,7 @@
                             </form>
                         </td>
                         {{-- floor切り捨て ceil切り上げ --}}
-                        <td data-label="小計">{{number_format($subtotal, 0) }}円</td> {{-- これで四捨五入できている --}}
+                        {{--<td data-label="小計">{{number_format($subtotal, 0) }}円</td>--}} {{-- これで四捨五入できている --}}
 
                         <td>
                             <form method="POST" action="/chumon/delete">
@@ -123,10 +124,10 @@
                     </tr>
                 @endforeach
 
-                <tr>
+                {{--<tr>
                     <td colspan="5" style="text-align:right;">合計</td>
                     <td>{{ number_format($total, 0) }}円</td>
-                </tr>
+                </tr>--}}
 
             </table>
 

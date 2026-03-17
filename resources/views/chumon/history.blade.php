@@ -32,22 +32,19 @@
 
 <div class="content-container">
     <div class="card">
-        <h2>購入履歴</h2>
-
+        <h2></h2>
         @forelse($historyList as $kihon)
             <div class="history-box">
                 <h3>
-                    注文日：{{ $kihon->shoridate }}
-                    （注文番号：{{ $kihon->kihonno }}）
+                    注文日：{{ $kihon->shoridate }}（注文番号：{{ $kihon->kihonno }}）
                 </h3>
-
                 <table class="product-table">
                     <tr>
                         <th>商品名</th>
                         <th>販売開始</th>
                         <th>単価</th>
                         <th>数量</th>
-                        <th>小計</th>
+                        {{--<th>小計</th>--}}
                         {{--<th>受取状況</th>--}}
                     </tr>
 
@@ -69,7 +66,7 @@
                             </td>
                             <td data-label="単価">{{ rtrim(rtrim($m->tanka, '0'), '.') }}円</td> {{-- これで四捨五入できている --}}
                             <td data-label="数量">{{ rtrim(rtrim($m->suryo, '0'), '.') }} {{ $m->tani }}</td>
-                            <td data-label="小計">{{ number_format($subtotal, 0) }}円</td> {{-- これで四捨五入できている --}}
+                            {{--<td data-label="小計">{{ number_format($subtotal, 0) }}円</td>--}} {{-- これで四捨五入できている --}}
                             {{-- <td data-label="受取状況">
                                 @if($m->uriage)
                                     　<span class="badge-success">受取済</span>
@@ -80,10 +77,10 @@
                         </tr>
                     @endforeach
 
-                    <tr>
+                    {{--<tr>
                         <td colspan="4" style="text-align:right;"><strong>合計</strong></td>
                         <td><strong>{{ number_format($total, 0) }}円</strong></td>
-                    </tr>
+                    </tr>--}}
                 </table>
             </div>
         @empty

@@ -21,6 +21,7 @@ class ChumonMeisai extends Model
         'tanka',
         'hyojitanka',
         'tani',
+        'suryoruleno',
         'min',
         'stock',
         'step',
@@ -40,6 +41,15 @@ class ChumonMeisai extends Model
     public function uriage()
     {
         return $this->hasOne(Uriagedata::class, 'barcode', 'barcode');
+    }
+
+    public function start()
+    {
+        return $this->belongsTo(
+            ChumonStart::class,
+            'suryoruleno',   // Meisai側のFK
+            'suryoruleno'    // Start側のPK
+        );
     }
 
 }

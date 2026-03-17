@@ -11,11 +11,10 @@ class ShohinSuryoRule extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'autono',
-        'shohinno',
+        'ruleno',
+        'sortno',
         'suryo',
         'label',
-        'sortno',
     ];
 
     /** 商品 */
