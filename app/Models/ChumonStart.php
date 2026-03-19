@@ -26,7 +26,7 @@ class ChumonStart extends Model
         'hyojitanka',
         'tani',
         'suryoruleno',
-        'is_on_sale',
+        //'is_on_sale',
         'min',
         'stock',
         'step',

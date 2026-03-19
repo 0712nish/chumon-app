@@ -207,9 +207,22 @@ class ChumonController extends Controller
 
                 // 在庫引当
                 foreach ($meisaiList as $meisai) {
+
+                    $start = ChumonStart::where('shohinno', $meisai->shohinno)
+                        ->where('startdate', $meisai->startdate)
+                        ->lockForUpdate()
+                        ->first();
+
+                    $qty = $meisai->suryo;
+
+                    // g → kg に変換
+                    if ($start->tani === 'g') {
+                        $qty = $meisai->suryo / 1000;
+                    }
+
                     ChumonStart::where('shohinno', $meisai->shohinno)
                         ->where('startdate', $meisai->startdate)
-                        ->decrement('stock', $meisai->suryo);
+                        ->decrement('stock', $qty);
                 }
 
                 // ✅ 注文確定（今処理中のものを更新）
@@ -282,11 +295,11 @@ public function addMulti(Request $request)
             ->where('startdate', $startdate)
             ->firstOrFail();
 
-        if ($qty < $start->min) {
-            return back()->withErrors([
-                "{$start->shohinname2} の数量は {$start->min} 以上で入力してください"
-            ]);
-        }
+        //if ($qty < $start->min) {
+        //    return back()->withErrors([
+        //        "{$start->shohinname2} の数量は {$start->min} 以上で入力してください"
+        //    ]);
+        //}
 
         $hasValidItem = true;
 

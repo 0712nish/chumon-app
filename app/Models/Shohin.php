@@ -20,7 +20,7 @@ class Shohin extends Model
         'tanka',
         'hyojitanka',
         'tani',
-        'is_on_sale',
+        //'is_on_sale',
         'min',
         'stock',
         'step',
