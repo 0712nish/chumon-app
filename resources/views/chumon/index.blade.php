@@ -11,9 +11,8 @@
             <h2><br>買い物かご</h2>
             <p>現在選択の内容です。まだ、購入は完了していません。</p>
         </div>
-
         <a href="/shohin" class="btn-confirm">
-            ← 商品一覧へ
+            ← 商品一覧
         </a>
     </div>
 
@@ -62,7 +61,7 @@
                     @endphp
                     <tr>
                         {{--<td class="product-no" data-label="No">{{ $m->meisaino }}</td>--}}
-                        <td class="product-name" data-label="商品名">{{ $m->shohin->shohinname2 }}</td>
+                        <td class="product-name" data-label="商品名">{{ $m->shohinname2 }}</td>
                         <td data-label="販売開始">
                             {{ \Carbon\Carbon::parse($m->startdate)->format('Y-m-d') }}
                         </td>
@@ -88,7 +87,7 @@
                             <select name="suryo" class="qty-select">
 
                             {{--@foreach($m->shohin->suryoRules as $q)--}}
-                            @foreach($m->start->suryoRules as $q)
+                            @foreach($m->suryoRules as $q)
 
                             <option value="{{ $q->suryo }}"
                             @if($q->suryo == $m->suryo) selected @endif>

@@ -17,26 +17,27 @@ class ChumonMeisai extends Model
         'meisaino',
         'shohinno',
         'startdate',
+        'shohinname2',
         'suryo',
         'tanka',
         'hyojitanka',
         'tani',
         'suryoruleno',
         'min',
-        'stock',
         'step',
+        'biko',
         'urikatano',
     ];
 
     /** 商品 */
-    public function shohin()
+    /*public function shohin()
     {
         return $this->belongsTo(
             Shohin::class,
             'shohinno',
             'shohinno'
         );
-    }
+    }*/
 
     public function uriage()
     {
@@ -45,11 +46,23 @@ class ChumonMeisai extends Model
 
     public function start()
     {
-        return $this->belongsTo(
+        return $this->hasOne(
             ChumonStart::class,
-            'suryoruleno',   // Meisai側のFK
-            'suryoruleno'    // Start側のPK
+            'shohinno',
+            'shohinno'
+        )->whereColumn(
+            'chumonstart.startdate',
+            'chumonmeisai.startdate'
         );
+    }
+
+    public function suryoRules()
+    {
+        return $this->hasMany(
+            ShohinSuryoRule::class,
+            'ruleno',   // 子テーブル
+            'suryoruleno'    // 親（chumonmeisai）
+        )->orderBy('sortno');
     }
 
 }

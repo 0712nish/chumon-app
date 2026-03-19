@@ -12,7 +12,7 @@
         </div>
 
         <a href="/shohin" class="btn-confirm">
-            ← 商品一覧へ
+            ← 商品一覧
         </a>
     </div>
 
@@ -56,7 +56,7 @@
                             $total += $subtotal;
                         @endphp
                         <tr>
-                            <td class="product-name" data-label="商品名">{{ $m->shohin->shohinname2 }}</td>
+                            <td class="product-name" data-label="商品名">{{ $m->shohinname2 }}</td>
                             <td data-label="販売開始">
                                 @if($m->startdate)
                                     {{ \Carbon\Carbon::parse($m->startdate)->format('Y-m-d') }}

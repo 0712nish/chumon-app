@@ -18,12 +18,13 @@ class ShohinSuryoRule extends Model
     ];
 
     /** 商品 */
-    public function shohin()
+    /*public function shohin()
     {
         return $this->belongsTo(
             Shohin::class,
             'shohinno',
             'shohinno'
         );
-    }
+    }*/
+        
 }

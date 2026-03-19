@@ -103,16 +103,16 @@
             box-shadow: 0 0 0 2px rgba(74,163,223,.2);
         }
 
-.login-btn {
-    width: 100%;
-    padding: 14px;
-    background: #4adfa6;
-    border: none;
-    color: #fff;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-}
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #4adfa6;
+            border: none;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
 
         .login-btn:hover {
             background: #45c39a;
@@ -382,24 +382,25 @@
             box-shadow: 0 3px 8px rgba(74,163,223,.4);
             transition: all .15s ease;
         }*/
-.btn-action{
-    background: linear-gradient(135deg,#4adfa6,#4adfa6);
-    color:#fff;
-    border:none;
 
-    padding:0 16px;
-    height:36px;
+        .btn-action{
+            background: linear-gradient(135deg,#4adfa6,#4adfa6);
+            color:#fff;
+            border:none;
 
-    border-radius:20px;
-    font-size:13px;
-    cursor:pointer;
+            padding:0 16px;
+            height:36px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+            border-radius:20px;
+            font-size:13px;
+            cursor:pointer;
 
-    box-shadow:0 3px 8px rgba(74,163,223,.4);
-}
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            box-shadow:0 3px 8px rgba(74,163,223,.4);
+        }
 
         .btn-action:hover {
             opacity: 0.7;
@@ -431,35 +432,61 @@
             gap: 10px;
         }
 
-.qty-box{
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
+        .qty-box{
+            display:flex;
+            align-items:center;
+            gap:6px;
+        }
 
-.qty-input{
-    width:70px;
-    height:34px;
-    text-align:center;
-    font-size:16px;
-}
+        .qty-input{
+            width:70px;
+            height:34px;
+            text-align:center;
+            font-size:16px;
+        }
 
-.qty-plus,
-.qty-minus{
-    width:34px;
-    height:34px;
-    border:1px solid #ccc;
-    background:#f5f5f5;
-    border-radius:6px;
-    font-size:18px;
-    cursor:pointer;
-}
+        .qty-plus,
+        .qty-minus{
+            width:34px;
+            height:34px;
+            border:1px solid #ccc;
+            background:#f5f5f5;
+            border-radius:6px;
+            font-size:18px;
+            cursor:pointer;
+        }
 
-.qty-select{
-    height:36px;
-    font-size:20px;
-    padding:4px 8px;
-}
+        .qty-select{
+            height:36px;
+            font-size:20px;
+            padding:4px 8px;
+        }
+
+        .account-page .page-header-inner {
+            max-width: 500px;   /* ← cardと揃える */
+            margin: 0 auto;
+        }
+
+        .account-page .card {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .account-page .login-field {
+            max-width: 400px;
+            margin: 0 auto 15px;
+        }
+
+        .account-page .login-field input {
+            width: 100%;
+        }
+
+        .account-page .login-btn {
+            max-width: 400px;
+            margin: 20px auto 0;
+            display: block;
+        }
+
 
 /* =========================
    スマホ最適化

@@ -39,10 +39,10 @@ class ChumonStart extends Model
     ];
 
     /* リレーション */
-    public function shohin()
+    /*public function shohin()
     {
         return $this->belongsTo(Shohin::class, 'shohinno', 'shohinno');
-    }
+    }*/
 
     public function suryoRules()
     {

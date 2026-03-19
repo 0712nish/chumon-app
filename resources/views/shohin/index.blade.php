@@ -13,11 +13,11 @@
         </div>
         <div class="header-buttons">
             <a href="/chumon/history" class="btn-confirm">
-                📦 購入履歴
+                ← 購入履歴
             </a>
 
             <a href="/chumon" class="btn-confirm">
-                🧾 買い物かご確認
+                ← 買い物かご確認
             </a>
         </div>
     </div>
@@ -63,7 +63,8 @@
                     <td class="product-name" data-label="商品名">{{ $s->shohinname2 }}</td>
                     <td data-label="販売開始">{{ $s->startdate->format('Y-m-d') }}</td>
                     <td data-label="単価">{{ $s->hyojitanka }}</td>
-                    <td data-label="在庫">{{ rtrim(rtrim($s->stock, '0'), '.') }} {{ $s->tani }}</td>
+                    {{--<td data-label="在庫">{{ rtrim(rtrim($s->stock, '0'), '.') }} {{ $s->tani }}</td>--}}
+                    <td data-label="在庫">{{ $s->stock_view }}</td>
                 <input type="hidden" name="items[{{ $key }}][shohinno]" value="{{ $s->shohinno }}">
                 <input type="hidden" name="items[{{ $key }}][startdate]" value="{{ $s->startdate->format('Y-m-d') }}">
 

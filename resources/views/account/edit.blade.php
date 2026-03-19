@@ -4,21 +4,36 @@
 
 @section('content')
 
-<div class="login-wrapper">
-    <div class="login-card">
-        <h2 class="login-title">アカウント設定</h2>
+<div class="account-page">
+<div class="page-header-wrapper">
+    <div class="page-header-inner">
+    <div class="page-header">
+        <div class="page-header-left">
+            <h2><br>アカウント設定</h2>
+            <p>メールアドレスやパスワードを変更できます。</p>
+        </div>
+        <a href="/shohin" class="btn-confirm">
+            ← 商品一覧
+        </a>
+    </div>
+    </div>
 
-        @if ($errors->any())
-            <div class="alert-error">
-                {{ $errors->first() }}
-            </div>
-        @endif
+    {{-- メッセージ --}}
+    @if ($errors->any())
+        <div class="alert-error">
+            {{ $errors->first() }}
+        </div>
+    @endif
 
-        @if (session('success'))
-            <div class="alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+    @if (session('success'))
+        <div class="alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+</div>
+
+<div class="content-container">
+    <div class="card">
 
         <form method="POST" action="/account/update">
             @csrf
@@ -43,5 +58,5 @@
         </form>
     </div>
 </div>
-
+</div>
 @endsection
