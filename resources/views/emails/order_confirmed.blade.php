@@ -14,8 +14,8 @@
 @endphp
 --------------------------------------------
 商品名 ： {{ $m->shohinname2 }}
-単価　 ： {{ rtrim(rtrim($m->tanka, '0'), '.') }} 円
-数量　 ： {{ rtrim(rtrim($m->suryo, '0'), '.') }} {{ $m->tani }}{{--小計　 ： {{ number_format($subtotal, 0) }} 円--}}
+単価　 ： {{ rtrim(rtrim($m->hyojitanka, '0'), '.') }}{{-- 円--}}
+数量　 ： {{ rtrim(rtrim($m->suryo, '0'), '.') }} {{ $m->chumontani }}{{--小計　 ： {{ number_format($subtotal, 0) }} 円--}}
 備考　 ： {{ $m->biko }}
 --------------------------------------------
 @endforeach{{--＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝■ 合計金額：{{ number_format($total, 0) }} 円＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝

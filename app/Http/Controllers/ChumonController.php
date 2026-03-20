@@ -333,6 +333,7 @@ public function addMulti(Request $request)
                 'tanka'     => $start->tanka,
                 'hyojitanka'=> $start->hyojitanka,
                 'tani'      => $start->tani,
+                'chumontani'      => $start->chumontani,
                 'suryoruleno' => $start->suryoruleno,
                 'min'      => $start->min,
                 //'stock'      => $start->stock,

@@ -22,6 +22,7 @@ class ChumonMeisai extends Model
         'tanka',
         'hyojitanka',
         'tani',
+        'chumontani',
         'suryoruleno',
         'min',
         'step',
