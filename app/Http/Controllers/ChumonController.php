@@ -234,7 +234,7 @@ class ChumonController extends Controller
 Mail::to(Auth::user()->email)
     ->send(new OrderConfirmedMail($kihon, $meisaiList));
 
-Mail::to('nishiyama-kenichi-vr@shumei.or.jp')
+Mail::to('staff-hanbai@shumei-nf.co.jp')
     ->send(new OrderConfirmedMail($kihon, $meisaiList));
 
         } catch (\RuntimeException $e) {
