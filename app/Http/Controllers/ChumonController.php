@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ChumonKihon;
 use App\Models\ChumonMeisai;
 use App\Models\ChumonStart;
-use App\Models\Shohin;
+//use App\Models\Shohin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -70,9 +70,12 @@ class ChumonController extends Controller
     /** 注文内容確認 */
     public function index()
     {
+        $today = Carbon::today();
+
         $kihon = ChumonKihon::where('hsid', Auth::user()->hsid)
             ->where('status', 0)
-            ->with(['meisai.suryoRules']) //
+            ->whereDate('shoridate', $today)            
+            ->with(['meisai.suryoRules'])
             ->first();
 
         return view('chumon.index', compact('kihon'));
@@ -97,17 +100,19 @@ class ChumonController extends Controller
             ->where('startdate', $meisai->startdate)
             ->firstOrFail();
 
-        // 単位変換（kg → g）
+        // 単位変換（kg → g）⇒中止
         $stock = $start->stock;
-        if ($start->tani === 'g') {
-            $stock = $start->stock * 1000;
-        }
+        //if ($start->tani === 'g') {
+        //    $stock = $start->stock * 1000;
+        //}
 
-        // 在庫チェック
-        if ($request->suryo > $stock) {
-            return back()->withErrors([
-                "{$start->shohinname2} の在庫が不足しています"
-            ]);
+        // 在庫チェック、在庫が9999以上は無制限とみなす、チェックしない
+        if ($stock < 9999) {
+            if ($request->suryo > $stock) {
+                return back()->withErrors([
+                    "{$start->shohinname2} の在庫が不足しています"
+                ]);
+            }
         }
 
         // 数量更新
@@ -138,7 +143,7 @@ class ChumonController extends Controller
     public function confirm(Request $request)
     {
         $hsid = Auth::user()->hsid;
-
+                
         try {
 
             $kihon = null;
@@ -146,8 +151,11 @@ class ChumonController extends Controller
 
             DB::transaction(function () use ($hsid, &$kihon, &$meisaiList) {
 
+                $today = Carbon::today();
+
                 $kihon = ChumonKihon::where('hsid', $hsid)
                     ->where('status', 0)
+                    ->whereDate('shoridate', $today)
                     ->lockForUpdate()
                     ->first();
 
@@ -173,31 +181,36 @@ class ChumonController extends Controller
                         ->lockForUpdate()
                         ->first();
 
-                    // 在庫（gに統一）
+                    // 在庫（gに統一）⇒中止⇒kgへ
                     $stock = $start->stock;
                     $qty   = $meisai->suryo;
 
-                    if ($start->tani === 'g') {
-                        $stock = $start->stock * 1000; // kg → g
-                    }
+                    //if ($start->tani === 'g') {
+                    //    $stock = $start->stock * 1000; // kg → g
+                    //}
 
-                    if ($qty > $stock) {
+                    if ($stock < 9999) {
+                        if ($qty > $stock) {
 
-                        // 不足量（g）
-                        $lack = $qty - $stock;
+                            // 不足量（g）⇒中止⇒kgへ
+                            $lack = $qty - $stock;
 
-                        // 表示用（kg変換）
-                        if ($start->tani === 'g') {
-                            $lackView  = rtrim(rtrim($lack / 1000, '0'), '.') . ' kg';
-                            $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' kg';
-                        } else {
-                            $lackView  = rtrim(rtrim($lack, '0'), '.') . ' ' . $meisai->tani;
-                            $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' ' . $start->tani;
+                            // 表示用（kg変換）⇒中止
+                            //if ($start->tani === 'g') {
+                            //    $lackView  = rtrim(rtrim($lack / 1000, '0'), '.') . ' kg';
+                            //    $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' kg';
+                            //} else {
+                            //    $lackView  = rtrim(rtrim($lack, '0'), '.') . ' ' . $meisai->tani;
+                            //    $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' ' . $start->tani;
+                            //}
+                            
+                                $lackView  = rtrim(rtrim($lack, '0'), '.') . ' ' . $meisai->chumontani;
+                                $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' ' . $start->chumontani;
+                            
+                            $errors[] =
+                                "「{$meisai->shohinname2}」が {$lackView} 不足しています"
+                                . "（在庫 {$stockView}）";
                         }
-
-                        $errors[] =
-                            "「{$meisai->shohinname2}」が {$lackView} 不足しています"
-                            . "（在庫 {$stockView}）";
                     }
                 }
 
@@ -231,11 +244,11 @@ class ChumonController extends Controller
             });
 
             // ✅ トランザクション外でメール送信
-Mail::to(Auth::user()->email)
-    ->send(new OrderConfirmedMail($kihon, $meisaiList));
+            Mail::to(Auth::user()->email)
+                ->send(new OrderConfirmedMail($kihon, $meisaiList));
 
-Mail::to('staff-hanbai@shumei-nf.co.jp')
-    ->send(new OrderConfirmedMail($kihon, $meisaiList));
+            Mail::to('staff-hanbai@shumei-nf.co.jp')
+                ->send(new OrderConfirmedMail($kihon, $meisaiList));
 
         } catch (\RuntimeException $e) {
             return redirect('/chumon')
@@ -276,7 +289,7 @@ public function addMulti(Request $request)
     $hsid = Auth::user()->hsid;
 
     $kihon = ChumonKihon::firstOrCreate(
-        ['hsid' => $hsid, 'urikatano' => '02', 'status' => 0],
+        ['hsid' => $hsid, 'urikatano' => '02', 'status' => 0,'shoridate' => Carbon::today()],
         ['shoridate' => now()]
     );
 
@@ -302,6 +315,22 @@ public function addMulti(Request $request)
         //}
 
         $hasValidItem = true;
+
+        $stock = $start->stock;
+
+        // 単位変換  単位がgでも、在庫の中は、kgになっている⇒中止
+        //if ($start->tani === 'g') {
+        //    $stock = $start->stock * 1000; // kg → g に変換
+        //}
+
+        // 比較  プルダウン上がkgでも、$qtyの中は、gになっている⇒中止 kgへ
+        if ($stock < 9999) {
+            if ($qty > $stock) {
+                return back()->withErrors([
+                    "{$start->shohinname2} の在庫が不足しています"
+                ]);
+            }
+        }
 
         $meisai = ChumonMeisai::where('kihonno', $kihon->kihonno)
             ->where('shohinno', $shohinno)
@@ -340,20 +369,6 @@ public function addMulti(Request $request)
                 //'step'      => $start->step,
                 'biko'      => $start->biko,
                 'urikatano' => '02',
-            ]);
-        }
-
-        $stock = $start->stock;
-
-        // 単位変換  単位がgでも、在庫の中は、kgになっている
-        if ($start->tani === 'g') {
-            $stock = $start->stock * 1000; // kg → g に変換
-        }
-
-        // 比較  プルダウン上がkgでも、$qtyの中は、gになっている
-        if ($qty > $stock) {
-            return back()->withErrors([
-                "{$start->shohinname2} の在庫が不足しています"
             ]);
         }
         

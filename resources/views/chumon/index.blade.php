@@ -135,7 +135,7 @@
                     @csrf
                     <button class="btn-action btn-success-action"
                         onclick="return confirm('この内容で注文を確定しますか？')">
-                        購入手続きへ
+                        注文確定
                     </button>
                 </form>
             </div>
