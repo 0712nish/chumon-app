@@ -600,9 +600,9 @@
     */
 
     /* 合計行 */
-    .product-table tr:last-child td {
+    /*.product-table tr:last-child td {
         font-weight: normal;
-    }
+    }*/
 
     /* 数量＋追加ボタンを横並び */
     .qty-add-wrap {
