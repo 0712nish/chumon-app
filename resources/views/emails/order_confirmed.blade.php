@@ -12,7 +12,7 @@
     //$subtotal = $m->suryo * $m->tanka;
     //$total += $subtotal;
 
-    $hyojisuryo = rtrim(rtrim($m->suryo, '0'), '.')
+    $hyojisuryo = rtrim(rtrim($m->suryo, '0'), '.');
     $hyojitani = $m->chumontani;
     
     // 数量が1kg未満の場合、g表示にする
