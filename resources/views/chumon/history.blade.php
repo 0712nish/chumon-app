@@ -69,8 +69,8 @@
                                 @if($m->suryo < 1 && $m->chumontani === 'kg')
                                     {{ $m->suryo * 1000 }} g
                                 @else
-                                    {{--　{{ rtrim(rtrim($m->suryo, '0'), '.') }} {{ $m->chumontani }}　--}} {{-- 少数点が存在しない場合、整数部分の０が削除される --}}
-                                    {{ $m->suryo }} {{ $m->chumontani }}
+                                    {{ rtrim(rtrim($m->suryo, '0'), '.') }} {{ $m->chumontani }} {{-- 少数点が存在しない場合、整数部分の０が削除される --}}
+                                    {{-- {{ $m->suryo }} {{ $m->chumontani }} --}}
                                 @endif
                             </td>
                             {{--<td data-label="小計">{{ number_format($subtotal, 0) }}円</td>--}} {{-- これで四捨五入できている --}}
