@@ -9,13 +9,25 @@
 @php $total = 0; @endphp
 @foreach($meisaiList as $m)
 @php
-    $subtotal = $m->suryo * $m->tanka;
-    $total += $subtotal;
+    //$subtotal = $m->suryo * $m->tanka;
+    //$total += $subtotal;
+
+    $hyojisuryo = $m->suryo;
+    $hyojitani = $m->chumontani;
+    
+    // 数量が1kg未満の場合、g表示にする
+    if ($m->suryo < 1) {
+        if ($m->chumontani === 'kg') {
+            $hyojisuryo = $m->suryo * 1000;
+            $hyojitani = 'g';
+        }
+    }
+
 @endphp
 --------------------------------------------
 商品名 ： {{ $m->shohinname2 }}
-単価　 ： {{ rtrim(rtrim($m->hyojitanka, '0'), '.') }}{{-- 円--}}
-数量　 ： {{ rtrim(rtrim($m->suryo, '0'), '.') }} {{ $m->chumontani }}{{--小計　 ： {{ number_format($subtotal, 0) }} 円--}}
+単価　 ： {{ $m->hyojitanka }}{{-- 円--}}
+数量　 ： {{ $hyojisuryo }} {{ $hyojitani }}{{--小計　 ： {{ number_format($subtotal, 0) }} 円--}}
 備考　 ： {{ $m->biko }}
 --------------------------------------------
 @endforeach{{--＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝■ 合計金額：{{ number_format($total, 0) }} 円＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝

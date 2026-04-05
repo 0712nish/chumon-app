@@ -64,8 +64,15 @@
                                     -
                                 @endif
                             </td>
-                            <td data-label="単価">{{ rtrim(rtrim($m->hyojitanka, '0'), '.') }}</td> {{-- これで四捨五入できている --}}
-                            <td data-label="数量">{{ rtrim(rtrim($m->suryo, '0'), '.') }} {{ $m->chumontani }}</td>
+                            <td data-label="単価">{{ $m->hyojitanka }}</td>
+                            <td data-label="数量">
+                                @if($m->suryo < 1 && $m->chumontani === 'kg')
+                                    {{ $m->suryo * 1000 }} g
+                                @else
+                                    {{--　{{ rtrim(rtrim($m->suryo, '0'), '.') }} {{ $m->chumontani }}　--}} {{-- 少数点が存在しない場合、整数部分の０が削除される --}}
+                                    {{ $m->suryo }} {{ $m->chumontani }}
+                                @endif
+                            </td>
                             {{--<td data-label="小計">{{ number_format($subtotal, 0) }}円</td>--}} {{-- これで四捨五入できている --}}
                             {{-- <td data-label="受取状況">
                                 @if($m->uriage)
