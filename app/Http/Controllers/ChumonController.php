@@ -226,16 +226,18 @@ class ChumonController extends Controller
                         ->lockForUpdate()
                         ->first();
 
-                    $qty = $meisai->suryo;
+                    if ($start->stock < 9999) {
+                        $qty = $meisai->suryo;
 
-                    // g → kg に変換
-                    if ($start->tani === 'g') {
-                        $qty = $meisai->suryo / 1000;
+                        // g → kg に変換⇒中止
+                        //if ($start->tani === 'g') {
+                        //    $qty = $meisai->suryo / 1000;
+                        //}
+
+                        ChumonStart::where('shohinno', $meisai->shohinno)
+                            ->where('startdate', $meisai->startdate)
+                            ->decrement('stock', $qty);
                     }
-
-                    ChumonStart::where('shohinno', $meisai->shohinno)
-                        ->where('startdate', $meisai->startdate)
-                        ->decrement('stock', $qty);
                 }
 
                 // ✅ 注文確定（今処理中のものを更新）

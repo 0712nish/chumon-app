@@ -64,7 +64,13 @@
                     <td data-label="販売開始">{{ $s->startdate->format('Y-m-d') }}</td>
                     <td data-label="単価">{{ $s->hyojitanka }}</td>
                     {{--<td data-label="在庫">{{ rtrim(rtrim($s->stock, '0'), '.') }} {{ $s->tani }}</td>--}}
-                    <td data-label="在庫">{{ $s->stock_view }}</td>
+                    <td data-label="在庫">
+                        @if($s->stock < 9999)
+                            {{ $s->stock_view }}
+                        @else
+                            --
+                        @endif
+                    </td>
                 <input type="hidden" name="items[{{ $key }}][shohinno]" value="{{ $s->shohinno }}">
                 <input type="hidden" name="items[{{ $key }}][startdate]" value="{{ $s->startdate->format('Y-m-d') }}">
 
