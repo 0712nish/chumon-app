@@ -22,14 +22,27 @@ class AccountController extends Controller
             'password' => 'nullable|min:4|confirmed',
         ]);
 
-        $user->email = $request->email;
+        $messages = [];
 
+        // メール変更チェック
+        if ($user->email !== $request->email) {
+            $messages[] = 'メールアドレスを変更しました';
+            $user->email = $request->email;
+        }
+
+        // パスワード変更チェック
         if ($request->filled('password')) {
+            $messages[] = 'パスワードを変更しました';
             $user->password = Hash::make($request->password);
         }
 
         $user->save();
 
-        return back()->with('success', 'アカウント情報を更新しました');
+        // 何も変更がなかった場合
+        if (empty($messages)) {
+            $messages[] = '変更はありませんでした';
+        }
+
+        return redirect('/shohin')->with('success', implode(' / ', $messages));
     }
 }

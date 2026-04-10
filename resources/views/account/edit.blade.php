@@ -40,18 +40,18 @@
 
             <div class="login-field">
                 <label>メールアドレス</label>
-                <input type="email" name="email"
+                <input type="email" name="email" autocomplete="email"
                        value="{{ auth()->user()->email }}" required>
             </div>
 
             <div class="login-field">
                 <label>新しいパスワード</label>
-                <input type="password" name="password">
+                <input type="password" name="password" autocomplete="new-password">
             </div>
 
             <div class="login-field">
                 <label>新しいパスワード（確認）</label>
-                <input type="password" name="password_confirmation">
+                <input type="password" name="password_confirmation" autocomplete="new-password">
             </div>
 
             <button class="login-btn">更新する</button>
