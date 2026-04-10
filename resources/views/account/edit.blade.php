@@ -44,7 +44,7 @@
                        value="{{ auth()->user()->email }}" required>
             </div>
 
-            <button class="login-btn">メールを更新</button>
+            <button class="login-btn">メールアドレスを更新</button>
         </form>
     </div>
     <div class="card" style="margin-top:20px;">
