@@ -33,7 +33,9 @@ Route::get('/chumon/history', [ChumonController::class, 'history']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/account', [AccountController::class, 'edit']);
-    Route::post('/account/update', [AccountController::class, 'update']);
+    //Route::post('/account/update', [AccountController::class, 'update']);
+    Route::post('/account/update-email', [AccountController::class, 'updateEmail']);
+    Route::post('/account/update-password', [AccountController::class, 'updatePassword']);
 });
 
 Route::post('/chumon/add-multi', [ChumonController::class, 'addMulti']);

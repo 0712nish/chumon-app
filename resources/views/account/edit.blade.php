@@ -35,7 +35,7 @@
 <div class="content-container">
     <div class="card">
 
-        <form method="POST" action="/account/update">
+        <form method="POST" action="/account/update-email">
             @csrf
 
             <div class="login-field">
@@ -44,8 +44,15 @@
                        value="{{ auth()->user()->email }}" required>
             </div>
 
+            <button class="login-btn">メールを更新</button>
+        </form>
+    </div>
+    <div class="card" style="margin-top:20px;">
+        <form method="POST" action="/account/update-password">
+            @csrf
+
             <div class="login-field">
-                <label>新しいパスワード</label>
+                <label>新しいパスワード（４桁以上）</label>
                 <input type="password" name="password" autocomplete="new-password">
             </div>
 
@@ -54,9 +61,10 @@
                 <input type="password" name="password_confirmation" autocomplete="new-password">
             </div>
 
-            <button class="login-btn">更新する</button>
+            <button class="login-btn">パスワードを更新</button>
         </form>
     </div>
+
 </div>
 </div>
 @endsection
