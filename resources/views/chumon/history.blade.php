@@ -36,7 +36,7 @@
         @forelse($historyList as $kihon)
             <div class="history-box">
                 <h3>
-                    注文日：{{ $kihon->shoridate }}（注文番号：{{ $kihon->kihonno }}）
+                    注文日：{{ $kihon->shoridate }}（No：{{ $kihon->kihonno }}）
                 </h3>
                 <table class="product-table">
                     <tr>
