@@ -673,6 +673,15 @@
         padding: 0 12px 12px;  /* 上だけ0、左右下は残す */
         box-shadow: none;
     }
+
+    /*
+    .btn-success-action:disabled {
+        background: #ccc !important;
+        color: #666;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+    */
     
 }
 
