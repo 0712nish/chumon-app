@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 // app/Http/Controllers/Auth/LoginController.php
 use Illuminate\Support\Facades\Auth;
+use App\Models\Shokuin;
 
 class LoginController extends Controller
 {
@@ -15,21 +16,48 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    //public function login(Request $request)
+    //{
+    //    $credentials = $request->validate([
+    //        'hsid' => 'required',
+    //        'password' => 'required',
+    //    ]);
+
+    //    if (Auth::attempt($credentials)) {
+    //        $request->session()->regenerate();
+    //        return redirect('/shohin');
+    //    }
+
+    //    return back()->withErrors([
+    //        'hsid' => 'IDまたはパスワードが違います',
+    //    ]);
+    //}
+    
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $request->validate([
             'hsid' => 'required',
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $loginId = $request->hsid;
+
+        $shokuin = Shokuin::where('hsid', $loginId)
+            ->orWhere('seikyucode', $loginId)
+            ->first();
+
+        if ($shokuin && Auth::attempt([
+            'hsid' => $shokuin->hsid,
+            'password' => $request->password,
+        ])) {
             $request->session()->regenerate();
+
             return redirect('/shohin');
         }
 
         return back()->withErrors([
             'hsid' => 'IDまたはパスワードが違います',
-        ]);
+        ])->onlyInput('hsid');
     }
 
     public function logout(Request $request)

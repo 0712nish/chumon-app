@@ -15,7 +15,7 @@ class Shokuin extends Authenticatable
     public $timestamps = false;
 
     protected $fillable = [
-        'hsid','name2','email','password'
+        'hsid','name2','seikyucode','email','password'
     ];
 
     protected $hidden = ['password'];
