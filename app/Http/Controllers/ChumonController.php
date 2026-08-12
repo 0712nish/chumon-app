@@ -100,17 +100,17 @@ class ChumonController extends Controller
             ->where('startdate', $meisai->startdate)
             ->firstOrFail();
 
-        // 単位変換（kg → g）⇒中止
+        // 単位変換（kg → g）⇒中止⇒復活(2026.8.12)
         $stock = $start->stock;
-        //if ($start->tani === 'g') {
-        //    $stock = $start->stock * 1000;
-        //}
+        if ($start->tani === 'g') {
+            $stock = $start->stock * 1000;
+        }
 
         // 在庫チェック、在庫が9999以上は無制限とみなす、チェックしない
-        if ($stock < 9999) {
+        if ($start->stock < 9999) {
             if ($request->suryo > $stock) {
                 return back()->withErrors([
-                    "{$start->shohinname2} の在庫が不足しています"
+                    "{$start->shohinname2} の在庫が不足していますyo"
                 ]);
             }
         }
@@ -181,31 +181,31 @@ class ChumonController extends Controller
                         ->lockForUpdate()
                         ->first();
 
-                    // 在庫（gに統一）⇒中止⇒kgへ
+                    // 在庫（gに統一）⇒中止⇒復活(2026.8.12)
                     $stock = $start->stock;
                     $qty   = $meisai->suryo;
 
-                    //if ($start->tani === 'g') {
-                    //    $stock = $start->stock * 1000; // kg → g
-                    //}
+                    if ($start->tani === 'g') {
+                        $stock = $start->stock * 1000; // kg → g
+                    }
 
-                    if ($stock < 9999) {
+                    if ($start->stock < 9999) {
                         if ($qty > $stock) {
 
-                            // 不足量（g）⇒中止⇒kgへ
+                            // 不足量（g）⇒中止⇒復活(2026.8.12)
                             $lack = $qty - $stock;
 
-                            // 表示用（kg変換）⇒中止
-                            //if ($start->tani === 'g') {
-                            //    $lackView  = rtrim(rtrim($lack / 1000, '0'), '.') . ' kg';
-                            //    $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' kg';
-                            //} else {
-                            //    $lackView  = rtrim(rtrim($lack, '0'), '.') . ' ' . $meisai->tani;
-                            //    $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' ' . $start->tani;
-                            //}
+                            // 表示用（kg変換）⇒復活(2026.8.12)
+                            if ($start->tani === 'g') {
+                                $lackView  = rtrim(rtrim($lack / 1000, '0'), '.') . ' kg';
+                                $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' kg';
+                            } else {
+                                $lackView  = rtrim(rtrim($lack, '0'), '.') . ' ' . $meisai->tani;
+                                $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' ' . $start->tani;
+                            }
                             
-                                $lackView  = rtrim(rtrim($lack, '0'), '.') . ' ' . $meisai->chumontani;
-                                $stockView = rtrim(rtrim($start->stock, '0'), '.') . ' ' . $start->chumontani;
+                                //$lackView  = rtrim(rtrim($lack, '0'), '.') . ' ' . $meisai->chumontani;
+                                //$stockView = rtrim(rtrim($start->stock, '0'), '.') . ' ' . $start->chumontani;
                             
                             $errors[] =
                                 "「{$meisai->shohinname2}」が {$lackView} 不足しています"
@@ -229,10 +229,10 @@ class ChumonController extends Controller
                     if ($start->stock < 9999) {
                         $qty = $meisai->suryo;
 
-                        // g → kg に変換⇒中止
-                        //if ($start->tani === 'g') {
-                        //    $qty = $meisai->suryo / 1000;
-                        //}
+                        // g → kg に変換⇒中止⇒復活(2026.8.12)
+                        if ($start->tani === 'g') {
+                            $qty = $meisai->suryo / 1000;
+                        }
 
                         ChumonStart::where('shohinno', $meisai->shohinno)
                             ->where('startdate', $meisai->startdate)
@@ -320,16 +320,16 @@ public function addMulti(Request $request)
 
         $stock = $start->stock;
 
-        // 単位変換  単位がgでも、在庫の中は、kgになっている⇒中止
-        //if ($start->tani === 'g') {
-        //    $stock = $start->stock * 1000; // kg → g に変換
-        //}
+        // 単位変換  単位がgでも、在庫の中は、kgになっている⇒中止⇒復活(2026.8.12)
+        if ($start->tani === 'g') {
+            $stock = $start->stock * 1000; // kg → g に変換
+        }
 
-        // 比較  プルダウン上がkgでも、$qtyの中は、gになっている⇒中止 kgへ
-        if ($stock < 9999) {
+        // 比較  プルダウン上がkgでも、$qtyの中は、gになっている⇒中止⇒復活(2026.8.12)
+        if ($start->stock < 9999) {
             if ($qty > $stock) {
                 return back()->withErrors([
-                    "{$start->shohinname2} の在庫が不足しています"
+                    "{$start->shohinname2} の在庫が不足していますadd"
                 ]);
             }
         }

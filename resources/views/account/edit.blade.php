@@ -44,7 +44,7 @@
                        value="{{ auth()->user()->email }}" required>
             </div>
 
-            <button class="login-btn">メールアドレスを更新</button>
+            <button class="login-btn">メールアドレスを変更</button>
         </form>
     </div>
     <div class="card" style="margin-top:20px;">
@@ -61,7 +61,7 @@
                 <input type="password" name="password_confirmation" autocomplete="new-password">
             </div>
 
-            <button class="login-btn">パスワードを更新</button>
+            <button class="login-btn">パスワードを変更</button>
         </form>
     </div>
 
