@@ -112,18 +112,26 @@
 
             {{--<div style="text-align:center; margin-top:20px;">--}}
             {{--<div style="margin-top:20px; display:flex; justify-content:center; gap:15px;">--}}
-            <div class="cart-buttons">
+            <div style="margin-top:20px;">
 
-                <button 
-                    class="btn-action btn-success-action" 
-                    {{ $shohinList->isEmpty() ? 'disabled' : '' }} 
-                > 
-                    {{ $shohinList->isEmpty() ? '販売中商品なし' : 'かごに追加' }} 
-                </button>
+                <div style="display:flex; justify-content:center;">
+                    <button 
+                        class="btn-action btn-success-action" 
+                        {{ $shohinList->isEmpty() ? 'disabled' : '' }} 
+                    > 
+                        {{ $shohinList->isEmpty() ? '販売中商品なし' : 'かごに追加' }} 
+                    </button>
+                </div>
 
-                <a href="/chumon" class="btn-action btn-cart-action">
-                    買い物かごへ
-                </a>
+                <div class="bottom-nav-buttons">
+                    <a href="/chumon/history" class="btn-confirm">
+                        ← 購入履歴
+                    </a>
+
+                    <a href="/chumon" class="btn-confirm">
+                        ← 買い物かご確認
+                    </a>
+                </div>
 
             </div>
         </form>

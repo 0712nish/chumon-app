@@ -487,31 +487,12 @@
             display: block;
         }
 
-.cart-buttons {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-}
-
-.cart-buttons > .btn-action {
-    width: auto;
-    flex: 0 0 auto;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-.btn-cart-action {
-    background: linear-gradient(135deg, #4a90e2, #4a90e2);
-    color: #fff;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
+        .bottom-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
 
 /* =========================
    スマホ最適化
