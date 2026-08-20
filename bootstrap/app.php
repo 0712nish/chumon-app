@@ -11,8 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->append(\App\Http\Middleware\BasicAuth::class);
-        //$middleware->trustProxies(at: '*');
+        //$middleware->append(\App\Http\Middleware\BasicAuth::class); 2026.8.20ベーシック認証を中止
+        //$middleware->trustProxies(at: '*'); この行は、最初からコメントアウト2026.？
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

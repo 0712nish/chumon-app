@@ -380,7 +380,7 @@ public function addMulti(Request $request)
         return back()->withErrors(['数量が入力されていません']);
     }
 
-    return redirect('/shohin')->with('success', '商品を追加しました');
+    return redirect('/shohin')->with('success', '商品を追加しました。まだ注文は確定されていません。「買い物かご」画面で確定してください。');
 }
 
 }
