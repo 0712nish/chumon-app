@@ -487,6 +487,31 @@
             display: block;
         }
 
+.cart-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart-buttons > .btn-action {
+    width: auto;
+    flex: 0 0 auto;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.btn-cart-action {
+    background: linear-gradient(135deg, #4a90e2, #4a90e2);
+    color: #fff;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 /* =========================
    スマホ最適化
@@ -584,20 +609,25 @@
         height:30px;
     }
 
-    .btn-success-action{
-        font-size:18px;
-        padding:12px 28px;
-    }
+.btn-success-action,
+.btn-cart-action {
+    font-size: 18px;
+    padding: 12px 28px;
+}
 
-    /*
-    .btn-action{
-        white-space:nowrap;
-        display:inline-flex;
-        align-items:center;
-        height:32px;
-        padding:6px 14px;
-    }
-    */
+.cart-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-buttons > .btn-action {
+    width: auto;
+    margin: 0;
+    flex: 0 0 auto;
+}
 
     /* 合計行 */
     /*.product-table tr:last-child td {

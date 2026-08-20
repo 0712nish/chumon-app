@@ -111,15 +111,21 @@
             @endif
 
             {{--<div style="text-align:center; margin-top:20px;">--}}
-            <div style="margin-top:20px; display:flex; justify-content:center;">
-                <button
-                    class="btn-action btn-success-action"
-                    {{ $shohinList->isEmpty() ? 'disabled' : '' }}
-                >
-                    {{ $shohinList->isEmpty() ? '販売中商品なし' : 'かごに追加' }}
-                </button>
-            </div>
+            {{--<div style="margin-top:20px; display:flex; justify-content:center; gap:15px;">--}}
+            <div class="cart-buttons">
 
+                <button 
+                    class="btn-action btn-success-action" 
+                    {{ $shohinList->isEmpty() ? 'disabled' : '' }} 
+                > 
+                    {{ $shohinList->isEmpty() ? '販売中商品なし' : 'かごに追加' }} 
+                </button>
+
+                <a href="/chumon" class="btn-action btn-cart-action">
+                    買い物かごへ
+                </a>
+
+            </div>
         </form>
 
     </div>
