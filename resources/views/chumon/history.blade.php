@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', '購入履歴')
+@section('title', '注文履歴')
 
 @section('content')
 
 <div class="page-header-wrapper">
     <div class="page-header">
         <div class="page-header-left">
-            <h2><br>購入履歴</h2>
+            <h2><br>注文履歴</h2>
             <p>過去に確定した注文一覧です。</p>
         </div>
 
@@ -91,7 +91,7 @@
                 </table>
             </div>
         @empty
-            <p>購入履歴はありません。</p>
+            <p>注文履歴はありません。</p>
         @endforelse
 
     </div>

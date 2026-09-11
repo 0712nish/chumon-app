@@ -9,7 +9,7 @@
     <div class="page-header">
         <div class="page-header-left">
             <h2><br>買い物かご</h2>
-            <p>現在選択の内容です。まだ、購入は完了していません。</p>
+            <p>現在選択の内容です。まだ、注文は完了していません。</p>
         </div>
         <a href="/shohin" class="btn-confirm">
             ← 商品一覧

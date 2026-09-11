@@ -13,11 +13,11 @@
         </div>
         <div class="header-buttons">
             <a href="/chumon/history" class="btn-confirm">
-                ← 購入履歴
+                ← 注文履歴
             </a>
 
             <a href="/chumon" class="btn-confirm">
-                ← 買い物かご確認
+                ← 買い物かご
             </a>
         </div>
     </div>
@@ -125,11 +125,11 @@
 
                 <div class="bottom-nav-buttons">
                     <a href="/chumon/history" class="btn-confirm">
-                        ← 購入履歴
+                        ← 注文履歴
                     </a>
 
                     <a href="/chumon" class="btn-confirm">
-                        ← 買い物かご確認
+                        ← 買い物かご
                     </a>
                 </div>
 
