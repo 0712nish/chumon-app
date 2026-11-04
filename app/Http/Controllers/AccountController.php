@@ -67,7 +67,8 @@ class AccountController extends Controller
 
         //$old = $user->email;
 
-        $user->email = Crypt::encryptString($request->email);
+        //$user->email = Crypt::encryptString($request->email);
+        $user->email = $request->email;
         $user->save();
 
         return redirect('/shohin')
