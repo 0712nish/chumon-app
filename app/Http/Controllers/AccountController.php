@@ -57,24 +57,19 @@ class AccountController extends Controller
         ]);
 
         // 現在のメールアドレスを復号して比較
-        //$oldEmail = $user->email
-        //    ? Crypt::decryptString($user->email)
-        //    : '';
+        $oldEmail = $user->email
+            ? Crypt::decryptString($user->email)
+            : '';
 
-        //if ($oldEmail === $request->email) {
-        //    return redirect('/shohin')->with('success', '変更はありませんでした');
-        //}
+        if ($oldEmail === $request->email) {
+            return redirect('/shohin')->with('success', '変更はありませんでした');
+        }
 
-        //$old = $user->email;
-
-        //$user->email = Crypt::encryptString($request->email);
-        $user->email = $request->email;
+        $user->email = Crypt::encryptString($request->email);
         $user->save();
 
         return redirect('/shohin')
-            ->with('success', "メールアドレスを変更しました");
-    //    return redirect('/shohin')
-    //        ->with('success', "メールアドレスを変更しました（{$oldEmail} → {$request->email}）");
+            ->with('success', "メールアドレスを変更しました（{$oldEmail} → {$request->email}）");
     }
 
     // パスワード更新
