@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
@@ -55,17 +56,22 @@ class AccountController extends Controller
             'email' => 'required|email',
         ]);
 
-        if ($user->email === $request->email) {
+        // 現在のメールアドレスを復号して比較
+        $oldEmail = $user->email
+            ? Crypt::decryptString($user->email)
+            : null;
+
+        if ($oldEmail === $request->email) {
             return redirect('/shohin')->with('success', '変更はありませんでした');
         }
 
-        $old = $user->email;
+        //$old = $user->email;
 
-        $user->email = $request->email;
+        $user->email = Crypt::encryptString($request->email);
         $user->save();
 
         return redirect('/shohin')
-            ->with('success', "メールアドレスを変更しました（{$old} → {$request->email}）");
+            ->with('success', "メールアドレスを変更しました（{$oldEmail} → {$request->email}）");
     }
 
     // パスワード更新

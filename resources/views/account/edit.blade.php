@@ -41,7 +41,10 @@
             <div class="login-field">
                 <label>メールアドレス</label>
                 <input type="email" name="email" autocomplete="email"
-                       value="{{ auth()->user()->email }}" required>
+                    value="{{ auth()->user()->email
+                        ? \Illuminate\Support\Facades\Crypt::decryptString(auth()->user()->email)
+                        : '' }}"
+                    required>
             </div>
 
             <button class="login-btn">メールアドレスを変更</button>
