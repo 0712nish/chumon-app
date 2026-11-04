@@ -59,7 +59,7 @@ class AccountController extends Controller
         // 現在のメールアドレスを復号して比較
         $oldEmail = $user->email
             ? Crypt::decryptString($user->email)
-            : null;
+            : '';
 
         if ($oldEmail === $request->email) {
             return redirect('/shohin')->with('success', '変更はありませんでした');
