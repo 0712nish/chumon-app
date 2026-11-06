@@ -247,7 +247,10 @@ class ChumonController extends Controller
             });
 
             // ✅ トランザクション外でメール送信 Crypt::decryptString($user->email)
-            Mail::to(Crypt::decryptString(Auth::user()->email))
+            $henkanEmail = Auth::user()->email
+                ? Crypt::decryptString(Auth::user()->email)
+                : 'nishiyama-kenichi-vr@shumei.or.jp';
+            Mail::to($henkanEmail)
                 ->send(new OrderConfirmedMail($kihon, $meisaiList));
 
             Mail::to('staff-hanbai@shumei-nf.co.jp')
