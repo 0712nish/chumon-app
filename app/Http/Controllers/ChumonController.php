@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderConfirmedMail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 
 class ChumonController extends Controller
 {
@@ -245,8 +246,8 @@ class ChumonController extends Controller
                 $kihon->save();
             });
 
-            // ✅ トランザクション外でメール送信
-            Mail::to(Auth::user()->email)
+            // ✅ トランザクション外でメール送信 Crypt::decryptString($user->email)
+            Mail::to(Crypt::decryptString(Auth::user()->email))
                 ->send(new OrderConfirmedMail($kihon, $meisaiList));
 
             Mail::to('staff-hanbai@shumei-nf.co.jp')
